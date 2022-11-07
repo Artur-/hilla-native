@@ -1,5 +1,6 @@
 package com.example.application;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,28 +23,23 @@ import org.springframework.aot.hint.ReflectionHints;
 import org.springframework.aot.hint.RuntimeHints;
 import org.springframework.aot.hint.RuntimeHintsRegistrar;
 
-import com.vaadin.flow.di.LookupInitializer;
-import com.vaadin.flow.router.DefaultRoutePathProvider;
-import com.vaadin.flow.server.startup.DefaultApplicationConfigurationFactory;
-
-public class HillaHintsRegistrar implements RuntimeHintsRegistrar {
+public class AtmosphereHintsRegistrar implements RuntimeHintsRegistrar {
 
     @Override
     public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
-        Set<Class<?>> classes = new HashSet<>();
-        classes.add(DefaultApplicationConfigurationFactory.class);
-        classes.add(DefaultRoutePathProvider.class);
-        classes.add(LookupInitializer.class);
+        ReflectionHints ref = hints.reflection();
         try {
-            classes.add(Class.forName("com.vaadin.flow.di.LookupInitializer$ResourceProviderImpl"));
-            classes.add(Class.forName("com.vaadin.flow.di.LookupInitializer$LookupImpl"));
-            classes.add(Class.forName("com.vaadin.flow.di.LookupInitializer$RegularOneTimeInitializerPredicate"));
-            classes.add(Class.forName("com.vaadin.flow.di.LookupInitializer$StaticFileHandlerFactoryImpl"));
-            classes.add(Class.forName("com.vaadin.flow.di.LookupInitializer$AppShellPredicateImpl"));
-        } catch (ClassNotFoundException e) {
+            for (Class<?> c : getAtmosphereClasses()) {
+                ref.registerType(c, MemberCategory.values());
+            }
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
+    }
+
+    private Collection<? extends Class<?>> getAtmosphereClasses() {
+        Set<Class<?>> classes = new HashSet<>();
         classes.add(DefaultAtmosphereResourceFactory.class);
         classes.add(SimpleHttpProtocol.class);
 
@@ -60,17 +56,6 @@ public class HillaHintsRegistrar implements RuntimeHintsRegistrar {
         classes.add(JSR356AsyncSupport.class);
         classes.add(DefaultMetaBroadcaster.class);
 
-        hints.resources().registerPattern("META-INF/VAADIN/*");
-        hints.resources().registerPattern("com/vaadin/flow/server/*");
-
-        ReflectionHints ref = hints.reflection();
-        try {
-            for (Class<?> c : classes) {
-                ref.registerType(c, MemberCategory.values());
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
+        return classes;
     }
 }
