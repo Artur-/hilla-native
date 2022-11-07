@@ -1,8 +1,12 @@
 package com.example.application;
 
+import org.springframework.beans.factory.aot.BeanRegistrationAotContribution;
+import org.springframework.beans.factory.aot.BeanRegistrationAotProcessor;
+import org.springframework.beans.factory.support.RegisteredBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportRuntimeHints;
 
 import com.vaadin.flow.component.page.AppShellConfigurator;
@@ -24,6 +28,11 @@ public class Application extends SpringBootServletInitializer implements AppShel
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
+    }
+
+    @Bean
+    public EndpointInitializationAotProcessor getEndpointInitializationAotProcessor() {
+        return new EndpointInitializationAotProcessor();
     }
 
 }
