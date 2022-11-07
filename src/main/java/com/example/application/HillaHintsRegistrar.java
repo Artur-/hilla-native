@@ -27,7 +27,7 @@ import com.vaadin.flow.di.LookupInitializer;
 import com.vaadin.flow.router.DefaultRoutePathProvider;
 import com.vaadin.flow.server.startup.DefaultApplicationConfigurationFactory;
 
-public class Reg implements RuntimeHintsRegistrar {
+public class HillaHintsRegistrar implements RuntimeHintsRegistrar {
 
     @Override
     public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
@@ -60,8 +60,6 @@ public class Reg implements RuntimeHintsRegistrar {
         classes.add(DefaultAtmosphereResourceSessionFactory.class);
         classes.add(JSR356AsyncSupport.class);
         classes.add(DefaultMetaBroadcaster.class);
-
-        classes.add(HelloWorldEndpoint.class);
 
         hints.resources().registerPattern("META-INF/VAADIN/*");
         hints.resources().registerPattern("com/vaadin/flow/server/*");

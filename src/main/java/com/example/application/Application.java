@@ -19,7 +19,7 @@ import com.vaadin.flow.theme.Theme;
 @SpringBootApplication
 @Theme(value = "hilla-native")
 @PWA(name = "hilla-native", shortName = "hilla-native", offlineResources = {})
-@ImportRuntimeHints(Reg.class)
+@ImportRuntimeHints(HillaHintsRegistrar.class)
 public class Application extends SpringBootServletInitializer implements AppShellConfigurator {
 
     public static void main(String[] args) {
