@@ -22,7 +22,6 @@ import org.springframework.aot.hint.ReflectionHints;
 import org.springframework.aot.hint.RuntimeHints;
 import org.springframework.aot.hint.RuntimeHintsRegistrar;
 
-import com.example.application.endpoints.helloworld.HelloWorldEndpoint;
 import com.vaadin.flow.di.LookupInitializer;
 import com.vaadin.flow.router.DefaultRoutePathProvider;
 import com.vaadin.flow.server.startup.DefaultApplicationConfigurationFactory;
