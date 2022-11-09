@@ -36,6 +36,8 @@ public class AtmosphereHintsRegistrar implements RuntimeHintsRegistrar {
             throw new RuntimeException(e);
         }
 
+        hints.resources().registerPattern("com/vaadin/flow/router/*");
+
     }
 
     private Collection<? extends Class<?>> getAtmosphereClasses() {
